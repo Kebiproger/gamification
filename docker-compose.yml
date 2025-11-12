@@ -1,6 +1,6 @@
 services:
   backend:
-      build: .
+      build: ./backend
       # command: ... ⬅️ УДАЛИТЕ ЭТУ СТРОКУ
       ports:
         - "8000:8000" # Добавьте это, чтобы получить доступ с хоста
@@ -8,6 +8,7 @@ services:
         - db
       environment:
         DATABASE_URL: "postgresql+asyncpg://my_app_user:secret@db/my_app_db"
+        POSTGRES_PASSWORD: secret
   
   db:
     image: postgres:15
