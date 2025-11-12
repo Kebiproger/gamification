@@ -1,0 +1,17 @@
+fastapi==0.120.1
+sqlmodel==0.0.27
+SQLAlchemy==2.0.44
+
+## Асинхронный драйвер для PostgreSQL
+asyncpg==0.30.0
+
+## Асинхронный сервер
+uvicorn==0.38.0
+uvloop==0.22.1
+anyio==4.11.0
+
+## Валидация данных и конфигурация
+pydantic==2.12.3
+python-dotenv==1.2.1
+alembic
+pydantic-settings

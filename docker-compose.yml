@@ -1,0 +1,24 @@
+services:
+  backend:
+      build: .
+      # command: ... ⬅️ УДАЛИТЕ ЭТУ СТРОКУ
+      ports:
+        - "8000:8000" # Добавьте это, чтобы получить доступ с хоста
+      depends_on:
+        - db
+      environment:
+        DATABASE_URL: "postgresql+asyncpg://my_app_user:secret@db/my_app_db"
+  
+  db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: my_app_user
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: my_app_db
+    # Не нужно пробрасывать порты БД наружу,
+    # т.к. 'backend' общается с 'db' по внутренней сети Docker
+
+volumes:
+  postgres_data:
