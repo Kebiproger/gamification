@@ -22,8 +22,8 @@ def get_user_service(session: Annotated[AsyncSession,Depends(get_async_session)]
 
 @router.post("/register",response_model=UserRead)
 async def handle_registration(user_data:UserCreate,user_service:Annotated[UserService,Depends(get_user_service)]):
-    return user_service.register_user(user_data)
+    return await user_service.register_user(user_data)
 
 @router.post("/action/execute",response_model=UserRead)
 async def handle_action_execution(current_user:Annotated[User,Depends(get_async_session)],user_service:Annotated[UserService,Depends(get_user_service)]):
-    return user_service.perform_action(user_id=current_user.id)
+    return await user_service.perform_action(user_id=current_user.id)

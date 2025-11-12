@@ -7,7 +7,7 @@ class UserService:
         self.repo = user_repo
 
     async def register_user(self, user_data:UserCreate):
-        db_user = self.repo.create_user(user_data)
+        db_user = await self.repo.create_user(user_data)
         return await UserRead.model_validate(db_user)
     
     def perform_action(self, user_id:int):
