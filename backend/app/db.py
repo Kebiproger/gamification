@@ -3,11 +3,10 @@ from .config import Settings
 from sqlalchemy.orm import declarative_base
 import os 
 
-settings = Settings(db_url=os.environ.get("DATABASE_URL"),
-    db_password=os.environ.get("POSTGRES_PASSWORD"),) # Инициализация настроек из config.py создавая обьект
+settings = Settings(database_url=os.environ.get("DATABASE_URL")) # Инициализация настроек из config.py создавая обьект
 
 engine = create_async_engine(
-    settings.db_url,
+    settings.database_url,
     echo=True,
     pool_size=10,
     max_overflow=20,

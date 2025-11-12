@@ -10,8 +10,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 router = APIRouter(prefix="/user",tags=["User's router"])
 
 session = Annotated[AsyncSession, Depends(get_async_session)]
-def get_current_user_mock(session: Annotated[AsyncSession,Depends(get_async_session)]):
-    user = session.get(User,1)
+async def get_current_user_mock(session: Annotated[AsyncSession,Depends(get_async_session)]):
+    user = await session.get(User,1)
     if not user:
         raise HTTPException(status_code=401,detail="Mock user not found")
     return user
@@ -25,5 +25,5 @@ async def handle_registration(user_data:UserCreate,user_service:Annotated[UserSe
     return await user_service.register_user(user_data)
 
 @router.post("/action/execute",response_model=UserRead)
-async def handle_action_execution(current_user:Annotated[User,Depends(get_async_session)],user_service:Annotated[UserService,Depends(get_user_service)]):
+async def handle_action_execution(current_user:Annotated[User,Depends(get_current_user_mock)],user_service:Annotated[UserService,Depends(get_user_service)]):
     return await user_service.perform_action(user_id=current_user.id)

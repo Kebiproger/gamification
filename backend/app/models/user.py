@@ -8,5 +8,5 @@ class User(Base):
     hashed_password = Column(String)
     username = Column(String)
     score = Column(Integer,default=0)
-    lvl = Column(Integer,default=1)
+    level = Column(Integer,default=1)
     completed_tasks= Column(Integer,default=0)

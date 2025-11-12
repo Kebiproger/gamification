@@ -11,11 +11,11 @@ from pathlib import Path
 
 from app.config import Settings
 from app.db import Base
+from app.models.user import User
 
 config = context.config
 settings = Settings(
-    db_url=os.environ.get("DATABASE_URL"),
-    db_password=os.environ.get("POSTGRES_PASSWORD"),
+    database_url=os.environ.get("DATABASE_URL"),
 )
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
@@ -31,7 +31,7 @@ def do_run_migrations(connection):
         context.run_migrations()
 
 def run_migrations_offline() -> None:
-    url =settings.db_url
+    url =settings.database_url
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -44,7 +44,7 @@ def run_migrations_offline() -> None:
 
 
 async def run_migrations_online() -> None:
-    db_url = settings.db_url
+    db_url = settings.database_url
     connectable = create_async_engine(
         db_url,
         poolclass=pool.NullPool,      

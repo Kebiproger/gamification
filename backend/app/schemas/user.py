@@ -1,4 +1,4 @@
-from pydantic import BaseModel,Field
+from pydantic import BaseModel,Field,ConfigDict
 
 class UserBase(BaseModel):
     username : str = Field(...,max_length=50)
@@ -11,3 +11,4 @@ class UserRead(UserBase):
     id : int
     level: int
     score:int
+    model_config = ConfigDict(from_attributes=True)
